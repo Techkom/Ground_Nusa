@@ -25,7 +25,7 @@ class Main:
         ap.add_argument("-a","--min-area", type=int, default=500, help="minimum area size")
         self.args_video = vars(ap.parse_args())
         
-    def Program(self):
+    def Program():
         #if the video argument is None, then we are rading from webcam
         if self.args_video.get("video", None) is None:
             # vs = VideoStream(src=0).start()
