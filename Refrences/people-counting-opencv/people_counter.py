@@ -42,7 +42,7 @@ args = vars(ap.parse_args())
 CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
 	"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
 	"dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-	"sofa", "train", "tvmonitor"]
+	"sofa", "train", "tvmonitor","rat","mouse"]
 
 # load our serialized model from disk
 print("[INFO] loading model...")
