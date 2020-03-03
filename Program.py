@@ -58,18 +58,24 @@ while True:
 	cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
+	# cnts = cnts[0] if len(cnts) == 2 else cnts[1]
 
 	# loop over the contours
 	for c in cnts:
+		print("cnts")
+		# print(cnts)
 		# if the contour is too small, ignore it
 		if cv2.contourArea(c) < args["min_area"]:
+			# print(cv2.contourArea(c))
 			continue
 
+		print(cv2.contourArea(c))
 		# compute the bounding box for the contour, draw it on the frame,
 		# and update the text
 		(x, y, w, h) = cv2.boundingRect(c)
-		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-		text = "Occupied"
+		# (x,y,w,h) = cv2.rectangle(c)
+		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+	text = len(cnts)
 
 	# draw the text and timestamp on the frame
 	cv2.putText(frame, "Room Status: {}".format(text), (10, 20),
