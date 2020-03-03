@@ -13,15 +13,15 @@ class Example(TKR.Frame):
         
         self.btn1 = TKR.Button(self, text="Video",
                                 command=self.onChoose)
-        self.btn1.place(x=45,y=50)
+        self.btn1.place(x=35,y=50)
         
         self.btn2 = TKR.Button(self, text="Cam",
                                 command=self.onCam)
-        self.btn2.place(x=47,y=100)
+        self.btn2.place(x=37,y=100)
         
         self.btn3 = TKR.Button(self, text="Exit",
                                 command=self.onExit)
-        self.btn3.place(x=47,y=150)
+        self.btn3.place(x=37,y=150)
         
         # self.txt = TKR.Text(self)
         # self.txt.pack(fill=TKR.BOTH,expand=1)

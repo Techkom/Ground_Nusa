@@ -34,7 +34,7 @@ while True:
 	# text
 	frame = vs.read()
 	frame = frame if args.get("video", None) is None else frame[1]
-	text = "Unoccupied"
+	text = 0
 
 	# if the frame could not be grabbed, then we have reached the end
 	# of the video
@@ -79,7 +79,8 @@ while True:
 		(x, y, w, h) = cv2.boundingRect(c)
 		# (x,y,w,h) = cv2.rectangle(c)
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
-	text = len(cnts)
+		text = len(cnts)
+	
 
 	# draw the text and timestamp on the frame
 	cv2.putText(frame, "Mouse: {}".format(text), (10, 20),
