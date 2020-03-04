@@ -3,7 +3,8 @@ import mysql.connector
 def mysql_Program(Value):
     try:
         connection_config_Dict = {
-            'host'              :"192.168.5.4",
+            # 'host'              :"192.168.5.4",
+            'host'              :"127.0.0.1",
             'port'              :"3307",
             'user'              :"Ground_Nusa",
             'password'          :"groundnusa",

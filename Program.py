@@ -7,8 +7,10 @@ import time
 import cv2
 import mysql_all as mysql
 
-adelay = 0
-timedelay = 100
+# adelay = 0
+# timedelay = 100
+
+Temp_Value = 0
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -102,13 +104,19 @@ while True:
 	# def Date
 	# def Condition
 	Value = text
-	if (adelay == timedelay) :     
-		mysql.mysql_Program(Value)
-		adelay = 0
+	# if (adelay == timedelay) :     
+	# 	mysql.mysql_Program(Value)
+	# 	adelay = 0
 		
-	else:
-		adelay += 1
-	print(adelay)
+	# else:
+	# 	adelay += 1
+	# print(adelay)
+
+	if (Value != Temp_Value):
+		mysql.mysql_Program(Value)
+		Temp_Value = Value
+	elif ((Value == Temp_Value) or (Value == 0)):
+		pass
 
 	# if the `q` key is pressed, break from the lop
 	if key == ord("q"):
