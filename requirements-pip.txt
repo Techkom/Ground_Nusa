@@ -12,6 +12,7 @@ numpy==1.18.1
 opencv-python==4.2.0.32
 pyparsing==2.4.6
 python-dateutil==2.8.1
+rpio.gpio
 scipy==1.4.1
 six==1.14.0
 virtualenv==20.0.7

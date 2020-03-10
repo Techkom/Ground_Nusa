@@ -1,15 +1,35 @@
 # import the necessary packages
+# library for Image Processing
 from imutils.video import VideoStream
 import argparse
 import datetime
 import imutils
 import time
 import cv2
+
+# library for MySQL
 import mysql_all as mysql
+
+# library for RPi.GPIO and config
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM) # GPIO Number
+
+
+# Variable 
+# For Relay
+RELAY_1_GPIO = 17 #GPIO 17
+RELAY_2 GPIO = 27 #GPIO 27
+GPIO.setup(RELAY_1_GPIO, GPIO.OUTPUT) # Assign GPIO Mode
+GPIO.setup(RELAY_2_GPIO, GPIO.OUTPUT) # Assign GPIO Mode
+RELAY_1_ON 	= GPIO.output(RELAY_1_GPIO, GPIO.LOW)
+RELAY_1_OFF = GPIO.output(RELAY_1_GPIO, GPIO.HIGH)
+RELAY_2_ON	= GPIO.output(RELAY_2_GPIO, GPIO.LOW)
+RELAY_2_OFF	= GPIO.output(RELAY_2_GPIO, GPIO.HIGH)
 
 # adelay = 0
 # timedelay = 100
 
+# Temp Value for Compare
 Temp_Value = 0
 
 # construct the argument parser and parse the arguments
@@ -82,7 +102,6 @@ while True:
 		# (x,y,w,h) = cv2.rectangle(c)
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 		text = len(cnts)
-	
 
 	# draw the text and timestamp on the frame
 	cv2.putText(frame, "Mouse: {}".format(text), (10, 20),
@@ -90,32 +109,28 @@ while True:
 	cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"),
 		(10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 
-	#delay
-	print(time.strftime("%c"))
+	# Print Time
+	# print(time.strftime("%c"))
 
 	# show the frame and record if the user presses a key
 	cv2.imshow("Feed", frame)
 	# cv2.imshow("Thresh", thresh)
 	# cv2.imshow("Frame Delta", frameDelta)
 	key = cv2.waitKey(1) & 0xFF
+
+	# Delay
 	time.sleep(0.5)
 
-		# SQL Section
-	# def Date
-	# def Condition
+	# SQL Section
 	Value = text
-	# if (adelay == timedelay) :     
-	# 	mysql.mysql_Program(Value)
-	# 	adelay = 0
-		
-	# else:
-	# 	adelay += 1
-	# print(adelay)
-
 	if (Value != Temp_Value):
 		mysql.mysql_Program(Value)
 		Temp_Value = Value
+		RELAY_1_ON
+		RELAY_2_ON
 	elif ((Value == Temp_Value) or (Value == 0)):
+		RELAY_1_OFF
+		RELAY_2_OFF
 		pass
 
 	# if the `q` key is pressed, break from the lop
