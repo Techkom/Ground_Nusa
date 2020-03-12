@@ -2,7 +2,7 @@ import subprocess
 
 # Path to a Python interpreter that runs any Python script
 # under the virtualenv /path/to/virtualenv/
-python_bin = "/home/pi/Documents/Ground_Nusa/GN-Raspberry/bin/python3"
+python_bin = "GN-Raspberry/bin/python"
 
 # Path to the script that must run under the virtualenv
 #script_file = "/home/pi/Documents/Ground_Nusa/PiCameraToOpenCV.py"

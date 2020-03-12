@@ -11,20 +11,20 @@ import cv2
 import mysql_all as mysql
 
 # library for RPi.GPIO and config
-# import RPi.GPIO as GPIO
-# GPIO.setmode(GPIO.BCM) # GPIO Number
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM) # GPIO Number
 
 
 # Variable 
 # For Relay
-# RELAY_1_GPIO = 17 #GPIO 17
-# RELAY_2 GPIO = 27 #GPIO 27
-# GPIO.setup(RELAY_1_GPIO, GPIO.OUTPUT) # Assign GPIO Mode
-# GPIO.setup(RELAY_2_GPIO, GPIO.OUTPUT) # Assign GPIO Mode
-# RELAY_1_ON 	= GPIO.output(RELAY_1_GPIO, GPIO.LOW)
-# RELAY_1_OFF = GPIO.output(RELAY_1_GPIO, GPIO.HIGH)
-# RELAY_2_ON	= GPIO.output(RELAY_2_GPIO, GPIO.LOW)
-# RELAY_2_OFF	= GPIO.output(RELAY_2_GPIO, GPIO.HIGH)
+RELAY_1_GPIO = 17 #GPIO 17
+RELAY_2 GPIO = 27 #GPIO 27
+GPIO.setup(RELAY_1_GPIO, GPIO.OUTPUT) # Assign GPIO Mode
+GPIO.setup(RELAY_2_GPIO, GPIO.OUTPUT) # Assign GPIO Mode
+RELAY_1_ON 	= GPIO.output(RELAY_1_GPIO, GPIO.LOW)
+RELAY_1_OFF = GPIO.output(RELAY_1_GPIO, GPIO.HIGH)
+RELAY_2_ON	= GPIO.output(RELAY_2_GPIO, GPIO.LOW)
+RELAY_2_OFF	= GPIO.output(RELAY_2_GPIO, GPIO.HIGH)
 
 # adelay = 0
 # timedelay = 100
@@ -35,7 +35,7 @@ Temp_Value = 0
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="path to the video file")
-ap.add_argument("-a", "--min-area", type=int, default=200, help="minimum area size")
+ap.add_argument("-a", "--min-area", type=int, default=10, help="minimum area size")
 args = vars(ap.parse_args())
 
 # if the video argument is None, then we are reading from webcam
@@ -76,9 +76,10 @@ while True:
 	# compute the absolute difference between the current frame and
 	# first frame
 	frameDelta = cv2.absdiff(firstFrame, gray)
-	thresh = cv2.threshold(frameDelta, 1, 255, cv2.THRESH_BINARY)[1]
-	# th2 = cv2.adaptiveThreshold(frameDelta,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV,17,2)
-	# th3 = cv2.adaptiveThreshold(frameDelta,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV,17,2)
+	thresh = cv2.threshold(frameDelta, 15, 255, cv2.THRESH_BINARY)[1]
+	# thresh = cv2.threshold(frameDelta, 21, 255, cv2.TRUNC)[1]
+	# thresh = cv2.adaptiveThreshold(frameDelta,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV,25,2)
+	# thresh = cv2.adaptiveThreshold(frameDelta,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV,17,2)
 
 	# dilate the thresholded image to fill in holes, then find contours
 	# on thresholded image
@@ -133,11 +134,11 @@ while True:
 	if (Value != Temp_Value):
 		# mysql.mysql_Program(Value)
 		Temp_Value = Value
-		# RELAY_1_ON
-		# RELAY_2_ON
+		RELAY_1_ON
+		RELAY_2_ON
 	elif ((Value == Temp_Value) or (Value == 0)):
-		# RELAY_1_OFF
-		# RELAY_2_OFF
+		RELAY_1_OFF
+		RELAY_2_OFF
 		pass
 
 	# if the `q` key is pressed, break from the lop

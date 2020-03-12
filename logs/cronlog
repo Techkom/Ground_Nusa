@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "GUI.py", line 58, in <module>
+    main()
+  File "GUI.py", line 52, in main
+    root = TKR.Tk()
+  File "/usr/lib/python3.7/tkinter/__init__.py", line 2023, in __init__
+    self.tk = _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)
+_tkinter.TclError: no display name and no $DISPLAY environment variable
