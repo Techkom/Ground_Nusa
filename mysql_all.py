@@ -1,7 +1,7 @@
 # asdasdasd
 import mysql.connector
 
-def mysql_Program(Value):
+def mysql_Program(Value1,Value2):
     try:
         connection_config_Dict = {
             # 'host'              :"192.168.5.4",
@@ -16,9 +16,10 @@ def mysql_Program(Value):
         connection = mysql.connector.connect(**connection_config_Dict)
         
         mySQL_Create_Main_Table = """CREATE TABLE IF NOT EXISTS Log (
-            ID int AUTO_INCREMENT,
+            ID INT AUTO_INCREMENT,
             Date_Log TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            Mouse_Value int NOT NULL,
+            Mouse_Value INT NOT NULL,
+            GPS_Coordinate VARCHAR(500) NOT NULL,
             PRIMARY KEY (ID))"""
         
         # mySQL_Input_Data = """INSERT INTO Log (Mouse_Value)
@@ -36,7 +37,7 @@ def mysql_Program(Value):
             # create_table = cursor.execute(mySQL_Create_Main_Table)
             
             # if (Condition == 1):
-            cursor.execute("INSERT INTO log (Mouse_Value) VALUES (%s)", (Value,))
+            cursor.execute("INSERT INTO log (Mouse_Value, GPS_Coordinate) VALUES (%s,%s)", (Value1,Value2))
             print("Data Inputed")
             # else(Condition == 2):
             #     sql_all_query = "SELECT * FROM Log"
@@ -49,6 +50,7 @@ def mysql_Program(Value):
 
     except mysql.connector.Error as e:
         print("Error while connecting to MySQL", e)
+        return
 
     finally:
         if (connection.is_connected()):
